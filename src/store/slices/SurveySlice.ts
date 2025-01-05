@@ -70,7 +70,7 @@ const surveySlice = createSlice({
             .addCase(postSurvey.fulfilled, (state) => {
                 state.sent = true;
             }).addCase(fetchResults.fulfilled, (state, action) => {
-                state.resultsData = action.payload.data;
+                state.resultsData = action.payload;
             }).addMatcher(isRejected, (_, action) => {
                 messages.error(action.payload as string)
             })
