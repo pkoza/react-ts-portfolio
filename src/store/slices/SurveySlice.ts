@@ -4,6 +4,7 @@ import consts from "../../helpers/consts.ts";
 import {RootState} from "../index.ts";
 import Api from "../api/api.ts";
 import {AxiosError} from "axios";
+import messages from "../../helpers/messages.tsx";
 
 const initialState : SurveyState = {
     formData: consts.getEmptySurveyFormData(),
@@ -16,11 +17,11 @@ export const postSurvey = createAsyncThunk(
         try {
             const data = (thunkAPI.getState() as RootState).survey.formData;
             console.log(data);
-            return Api.postSurvey(data);
+            return await Api.postSurvey(data);
         }
         catch(err) {
-            console.log("pess", err)
-            thunkAPI.rejectWithValue((err as AxiosError).response?.data?.toString());
+            const axiosError = err as AxiosError;
+            return thunkAPI.rejectWithValue(axiosError.message + "\n" + (axiosError.response?.data as {message: string})?.message);
         }
     }
 )
@@ -52,6 +53,7 @@ const surveySlice = createSlice({
             .addCase(postSurvey.fulfilled, (state) => {
                 state.sent = true;
             }).addMatcher(isRejected, (_, action) => {
+                messages.error(action.payload as string)
             })
     }
 })
