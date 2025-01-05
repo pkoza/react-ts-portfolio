@@ -16,8 +16,8 @@ export const postSurvey = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
             const data = (thunkAPI.getState() as RootState).survey.formData;
-            console.log(data);
-            return await Api.postSurvey(data);
+            const response = await Api.postSurvey(data);
+            return response.data;
         }
         catch(err) {
             const axiosError = err as AxiosError;
@@ -26,11 +26,12 @@ export const postSurvey = createAsyncThunk(
     }
 )
 
-export const getResults = createAsyncThunk(
+export const fetchResults = createAsyncThunk(
     'results/get',
     async (_, thunkAPI) => {
         try {
-            return await Api.getSurveyResults();
+            const response = await Api.getSurveyResults();
+            return response.data;
         }
         catch(err) {
             const axiosError = err as AxiosError;
@@ -68,7 +69,7 @@ const surveySlice = createSlice({
         builder
             .addCase(postSurvey.fulfilled, (state) => {
                 state.sent = true;
-            }).addCase(getResults.fulfilled, (state, action) => {
+            }).addCase(fetchResults.fulfilled, (state, action) => {
                 state.resultsData = action.payload.data;
             }).addMatcher(isRejected, (_, action) => {
                 messages.error(action.payload as string)
@@ -78,4 +79,9 @@ const surveySlice = createSlice({
 
 export default surveySlice.reducer;
 
-export const { updateSurveyFormData, resetSurveyFormData, toggleSurveyFormArrayItem, setSurveySent } = surveySlice.actions;
+export const {
+    updateSurveyFormData,
+    resetSurveyFormData,
+    toggleSurveyFormArrayItem,
+    setSurveySent ,
+    resetResultsData} = surveySlice.actions;

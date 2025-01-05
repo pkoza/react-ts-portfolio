@@ -1,11 +1,11 @@
-import React, {useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {Link} from "react-router-dom";
 import {ArrowLeft, ArrowRight} from "react-feather";
 import TextInput from "../../components/TextInput/TextInput.tsx";
 import {AppDispatch, RootState} from "../../store";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    postSurvey,
+    postSurvey, resetSurveyFormData,
     toggleSurveyFormArrayItem,
     updateSurveyFormData
 } from "../../store/slices/SurveySlice.ts";
@@ -15,7 +15,6 @@ import {SurveyFormError} from "../../types/types.ts";
 import validator from "../../helpers/validator.ts";
 
 const filterOptions = (options: Array<Option>, value: string) => value ? options.filter((o) => o.text.toLowerCase().includes(value.toLowerCase())) : options;
-
 
 const Survey: React.FC = () => {
     const dispatch: AppDispatch = useDispatch()
@@ -28,13 +27,18 @@ const Survey: React.FC = () => {
         , [errors, setErrors] = useState([] as Array<SurveyFormError>)
 
     //Works for both add and delete since we use toggle function
-    const handleSelectMultiOption = (field: "frontendFramework" | "cssFramework") => (o: Option) => dispatch(toggleSurveyFormArrayItem({field, value: o}))
-    const handleSelectStateManager = (o: Option) => dispatch(updateSurveyFormData({field: "stateManager", value: o.text}))
-    const fieldErrors = (name: string) => {
+    const handleSelectMultiOption = useCallback((field: "frontendFramework" | "cssFramework") => (o: Option) => dispatch(toggleSurveyFormArrayItem({field, value: o})), [dispatch])
+    const handleSelectStateManager = useCallback((o: Option) => dispatch(updateSurveyFormData({field: "stateManager", value: o.text})), [dispatch])
+    const fieldErrors = useCallback((name: string) => {
         const fieldErrors = errors.filter(err => err.field === name);
         return fieldErrors.length ? fieldErrors.map(err => err.error).join(', ') : undefined
-    }
+    }, [errors])
 
+    useEffect(() => {
+        return () => {
+            dispatch(resetSurveyFormData())
+        };
+    }, []);
 
     return <div className="min-h-screen text-gray-800 dark:text-gray-200 flex flex-col">
         {/* Header */}
@@ -48,7 +52,7 @@ const Survey: React.FC = () => {
 
         {/* Form Section */}
         <main className="flex-grow container mx-auto p-6 flex flex-col items-center">
-            {sent ?
+            {!sent ?
             <div className="w-full max-w-lg space-y-6">
                 {/* Username Field */}
                 <div>
@@ -130,7 +134,7 @@ const Survey: React.FC = () => {
             }
 
             {/* Results Link */}
-            {sent ?
+            {!sent ?
                 <Link to="/results" className="mt-6 text-secondary hover:text-primary flex items-center space-x-2">
                     <span>Skip to Results</span>
                     <ArrowRight size={18} />

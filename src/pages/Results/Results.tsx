@@ -1,9 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "react-feather";
 import BarChart from "../../components/BarChart/BarChart.tsx";
+import {fetchResults, resetResultsData} from "../../store/slices/SurveySlice.ts";
+import {AppDispatch} from "../../store";
+import {useDispatch} from "react-redux";
 const unit = "Votes"
 const ResultsPage: React.FC = () => {
+    const dispatch: AppDispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchResults())
+
+        return () => {
+            dispatch(resetResultsData())
+        };
+    }, []);
+
     return (
         <div className="min-h-screen bg-gray-100 text-gray-800 flex flex-col">
             {/* Header */}
