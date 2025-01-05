@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {Link} from "react-router-dom";
 import {ArrowLeft, ArrowRight} from "react-feather";
 import TextInput from "../../components/TextInput/TextInput.tsx";
@@ -14,17 +14,17 @@ import consts from "../../helpers/consts.ts";
 import {SurveyFormError} from "../../types/types.ts";
 import validator from "../../helpers/validator.ts";
 
+const filterOptions = (options: Array<Option>, value: string) => value ? options.filter((o) => o.text.toLowerCase().includes(value.toLowerCase())) : options;
 
 
 const Survey: React.FC = () => {
     const dispatch: AppDispatch = useDispatch()
-        , surveyState = useSelector((state: RootState) => state.survey)
-        , {formData} = surveyState
+        , {formData, sent} = useSelector((state: RootState) => state.survey)
         , [frameworkValue, setFrameworkValue] = useState("")
         , [cssValue, setCssValue] = useState("")
-        , frameworkOptionsFiltered = frameworkValue ? consts.frameworkDefaultOptions.filter((o) => o.text.toLowerCase().includes(frameworkValue.toLowerCase())) : consts.frameworkDefaultOptions
-        , cssOptionsFiltered = cssValue ? consts.cssDefaultOptions.filter((o) => o.text.toLowerCase().includes(cssValue.toLowerCase())) : consts.cssDefaultOptions
-        , managerOptionsFiltered = formData.stateManager ? consts.managerDefaultOptions.filter((o) => o.text.toLowerCase().includes(formData.stateManager.toLowerCase())) : consts.managerDefaultOptions
+        , frameworkOptionsFiltered = useMemo(() => filterOptions(consts.frameworkDefaultOptions, frameworkValue), [frameworkValue])
+        , cssOptionsFiltered = useMemo(() => filterOptions(consts.cssDefaultOptions, cssValue), [cssValue])
+        , managerOptionsFiltered = useMemo(() => filterOptions(consts.managerDefaultOptions, formData.stateManager), [formData.stateManager])
         , [errors, setErrors] = useState([] as Array<SurveyFormError>)
 
     //Works for both add and delete since we use toggle function
@@ -48,7 +48,7 @@ const Survey: React.FC = () => {
 
         {/* Form Section */}
         <main className="flex-grow container mx-auto p-6 flex flex-col items-center">
-            {!surveyState.sent ?
+            {sent ?
             <div className="w-full max-w-lg space-y-6">
                 {/* Username Field */}
                 <div>
@@ -130,7 +130,7 @@ const Survey: React.FC = () => {
             }
 
             {/* Results Link */}
-            {!surveyState.sent ?
+            {sent ?
                 <Link to="/results" className="mt-6 text-secondary hover:text-primary flex items-center space-x-2">
                     <span>Skip to Results</span>
                     <ArrowRight size={18} />
