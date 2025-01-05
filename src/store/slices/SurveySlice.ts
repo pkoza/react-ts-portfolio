@@ -21,7 +21,20 @@ export const postSurvey = createAsyncThunk(
         }
         catch(err) {
             const axiosError = err as AxiosError;
-            return thunkAPI.rejectWithValue(axiosError.message + "\n" + (axiosError.response?.data as {message: string})?.message);
+            return thunkAPI.rejectWithValue(axiosError.message + "\n" + (axiosError.response?.data as {message: string})?.message || '');
+        }
+    }
+)
+
+export const getResults = createAsyncThunk(
+    'results/get',
+    async (_, thunkAPI) => {
+        try {
+            return await Api.getSurveyResults();
+        }
+        catch(err) {
+            const axiosError = err as AxiosError;
+            return thunkAPI.rejectWithValue(axiosError.message + "\n" + (axiosError.response?.data as {message: string})?.message || '');
         }
     }
 )
@@ -44,14 +57,19 @@ const surveySlice = createSlice({
         resetSurveyFormData: (state) => {
             state.formData = consts.getEmptySurveyFormData()
         },
+        resetResultsData: (state) => {
+            state.resultsData = undefined
+        },
         setSurveySent: (state, {payload} : PayloadAction<boolean>) => {
-            state.sent = payload;
+            state.sent = payload
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(postSurvey.fulfilled, (state) => {
                 state.sent = true;
+            }).addCase(getResults.fulfilled, (state, action) => {
+                state.resultsData = action.payload.data;
             }).addMatcher(isRejected, (_, action) => {
                 messages.error(action.payload as string)
             })

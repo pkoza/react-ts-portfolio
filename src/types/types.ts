@@ -2,7 +2,8 @@ import {Option} from "../components/SelectInput/SelectInput.tsx";
 
 export interface SurveyState {
     sent: boolean,
-    formData: SurveyFormData
+    formData: SurveyFormData,
+    resultsData?: Record<keyof SurveyFormData, AggregatedAnswers>
 }
 
 export interface SurveyFormData {
@@ -10,6 +11,11 @@ export interface SurveyFormData {
     frontendFramework: Array<Option>,
     stateManager: string,
     cssFramework: Array<Option>
+}
+
+export interface AggregatedAnswers {
+    values: Array<string>,
+    counts: Array<number>
 }
 
 //validations
@@ -29,4 +35,5 @@ export interface ActionToggleSurveyFormArrayItem {
     field: "frontendFramework" | "cssFramework",
     value: Option
 }
+
 
