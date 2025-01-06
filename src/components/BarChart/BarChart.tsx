@@ -75,8 +75,8 @@ const BarChart: React.FC<BarChartProps> = ({ title, labels, dataset, unit }: Bar
         scales: {
             y: {
                 ticks: {
-                    callback: function(value: number) {
-                        return value % 1 === 0 ? value : undefined;
+                    callback: function(value) {
+                        return (value as number) % 1 === 0 ? value : undefined;
                     },
                 },
                 beginAtZero: true,

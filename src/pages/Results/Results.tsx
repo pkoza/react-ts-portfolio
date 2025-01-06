@@ -34,7 +34,7 @@ console.log(results);
             </header>
 
             {results &&
-                <main className="flex-grow container mx-auto px-3 py-6 grid grid-cols-2 grid-rows-2 gap-6">
+              <main className="flex-grow container mx-auto px-3 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Box 1 */}
                     <div className="bg-white shadow-md rounded-md p-4 flex items-center justify-center">
                         <BarChart
