@@ -2,14 +2,23 @@ import React from "react";
 import './Home.css'
 import {Link} from "react-router-dom";
 import Card from "./Card.tsx";
-import Header from "./Header.tsx";
+import Header from "../../components/Header/Header.tsx";
 import Footer from "./Footer.tsx";
 
 
 
 const Home: React.FC = () => {
     return <div className="bg-gray-100 text-gray-800">
-        <Header/>
+        <Header
+            title={{text: "Peter Koza", link:"#home"}}
+            navigation={[
+                { link: '#home', text: 'Home', key: 1 },
+                { link: '#about', text: 'About Me', key: 2 },
+                { link: '#portfolio', text: 'Portfolio', key: 3 },
+                { link: '#survey', text: 'Survey!', key: 4 },
+                { link: '#contact', text: 'Contact', key: 5 }
+            ]}
+        />
 
         {/* Intro/Home Section */}
         <section id="home" className="bg-primary text-white h-screen flex items-center justify-center">
@@ -24,7 +33,7 @@ const Home: React.FC = () => {
             <div className="container mx-auto text-center">
                 <h3 className="text-3xl font-bold mb-8">About Me</h3>
                 <p className="text-lg max-w-2xl mx-auto mb-12">Currently used technologies:</p>
-                <div className="flex justify-center space-x-8">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <Card title={"React"} description={"Building robust front-end interfaces."} />
                     <Card title={"Redux"} description={"Managing centralized state for complex applications."} />
                     <Card title={"Node.js"} description={"Seamless backend integrations."} />
