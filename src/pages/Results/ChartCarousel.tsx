@@ -19,14 +19,11 @@ const ChartCarousel : React.FC<ChartCarouselProps> = ({data}) => {
     };
 
     return (
-        <div className="relative w-full mx-auto overflow-hidden">
+        <div className="relative w-full mx-auto overflow-hidden h-[calc(100vh-4rem)]">
             {/* Slides */}
-            <div
-                className="flex transition-transform duration-700"
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
+            <div className="flex transition-transform duration-700 h-full" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                 {data.map((slide) => (
-                    <div key={slide.key} className="w-full flex-shrink-0 flex items-center justify-center h-screen p-16 md:pl-32 md:pr-24">
+                    <div key={slide.key} className="w-full flex-shrink-0 flex items-center justify-center h-full pt-8 pb-12 px-16 md:pl-20 md:pr-24">
                         <BarChart
                             title={slide.title}
                             labels={slide.labels}

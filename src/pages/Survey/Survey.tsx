@@ -13,6 +13,7 @@ import SelectInput, {Option} from "../../components/SelectInput/SelectInput.tsx"
 import consts from "../../helpers/consts.ts";
 import {SurveyFormError} from "../../types/types.ts";
 import validator from "../../helpers/validator.ts";
+import Header from "../../components/Header/Header.tsx";
 
 const filterOptions = (options: Array<Option>, value: string) => value ? options.filter((o) => o.text.toLowerCase().includes(value.toLowerCase())) : options;
 
@@ -42,16 +43,10 @@ const Survey: React.FC = () => {
 
     return <div className="min-h-screen text-gray-800 dark:text-gray-200 flex flex-col">
         {/* Header */}
-        <header className="p-4 flex items-center bg-white shadow relative">
-            <Link to="/" className="text-primary hover:text-secondary flex items-center space-x-2">
-                <ArrowLeft size={18} />
-                <span>Home</span>
-            </Link>
-            <h1 className="absolute left-1/2 transform -translate-x-1/2 text-2xl font-bold text-primary">Survey</h1>
-        </header>
+        <Header title={{text: "Survey"}} backButton={{text: "Home", link: "/"}} />
 
         {/* Form Section */}
-        <main className="flex-grow container mx-auto p-6 flex flex-col items-center">
+        <main className="flex-grow container mx-auto p-6 pt-12 flex flex-col items-center">
             {!sent ?
             <div className="w-full max-w-lg space-y-6">
                 {/* Username Field */}

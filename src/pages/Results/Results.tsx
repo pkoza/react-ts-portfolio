@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
-import { Link } from "react-router-dom";
-import {ArrowLeft} from "react-feather";
 import {fetchResults, resetResultsData} from "../../store/slices/SurveySlice.ts";
 import {AppDispatch, RootState} from "../../store";
 import {useDispatch, useSelector} from "react-redux";
 import ChartCarousel from "./ChartCarousel.tsx";
+import Header from "../../components/Header/Header.tsx";
 
 const unit = "Votes"
 
@@ -22,18 +21,9 @@ const ResultsPage: React.FC = () => {
     }, []);
 
     return (
-        <div className="min-h-screen text-gray-800 flex flex-col">
+        <div className="h-screen flex flex-col">
             {/* Header */}
-            <header className="p-4 flex items-center bg-white shadow relative">
-                {/* Back to Home Link */}
-                <Link to="/" className="text-primary hover:text-secondary flex items-center space-x-2">
-                    <ArrowLeft size={18} />
-                    <span>Home</span>
-                </Link>
-                <h1 className="absolute left-1/2 transform -translate-x-1/2 text-2xl font-bold text-primary">
-                    Results
-                </h1>
-            </header>
+            <Header title={{text: "Results"}} backButton={{text: "Home", link: "/"}} />
 
             <main>
                 {results && <ChartCarousel

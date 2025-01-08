@@ -10,7 +10,7 @@ import Footer from "./Footer.tsx";
 const Home: React.FC = () => {
     return <div className="bg-gray-100 text-gray-800">
         <Header
-            title={{text: "Peter Koza", link:"#home"}}
+            title={{text: "Personal portfolio", link:"#home"}}
             navigation={[
                 { link: '#home', text: 'Home', key: 1 },
                 { link: '#about', text: 'About Me', key: 2 },
