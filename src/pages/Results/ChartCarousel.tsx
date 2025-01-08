@@ -1,26 +1,21 @@
 import React, {useState} from "react";
-import BarChart from "../../components/BarChart/BarChart.tsx";
+import BarChart, {BarChartProps} from "../../components/BarChart/BarChart.tsx";
 import {ChevronLeft, ChevronRight} from "react-feather";
 
-const Carousel : React.FC = () => {
-    const slides = [
-        { id: 1, image: 'https://via.placeholder.com/800x400?text=Slide+1', caption: 'Slide 1' },
-        { id: 2, image: 'https://via.placeholder.com/800x400?text=Slide+2', caption: 'Slide 2' },
-        { id: 3, image: 'https://via.placeholder.com/800x400?text=Slide+3', caption: 'Slide 3' },
-    ];
+export interface ChartCarouselProps {
+    data: Array<BarChartProps & {key: string | number}>
+}
+
+const ChartCarousel : React.FC<ChartCarouselProps> = ({data}) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const prevSlide = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? slides.length - 1 : prevIndex - 1
-        );
+        setCurrentIndex(currentIndex === 0 ? data.length - 1 : currentIndex - 1);
     };
 
     const nextSlide = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === slides.length - 1 ? 0 : prevIndex + 1
-        );
+        setCurrentIndex(currentIndex === data.length - 1 ? 0 : currentIndex + 1);
     };
 
     return (
@@ -30,13 +25,13 @@ const Carousel : React.FC = () => {
                 className="flex transition-transform duration-700"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
-                {slides.map((slide) => (
-                    <div key={slide.id} className="w-full flex-shrink-0 flex items-center justify-center h-screen bg-gray-100 p-16 md:pl-32 md:pr-24">
+                {data.map((slide) => (
+                    <div key={slide.key} className="w-full flex-shrink-0 flex items-center justify-center h-screen p-16 md:pl-32 md:pr-24">
                         <BarChart
-                            title={"Most popular css frameworks"}
-                            labels={["asd", "sdf", "sfd", "wer"]}
-                            unit={"cece"}
-                            dataset={[8,4,2,1]}
+                            title={slide.title}
+                            labels={slide.labels}
+                            unit={slide.unit}
+                            dataset={slide.dataset}
                         />
                     </div>
                 ))}
@@ -58,7 +53,7 @@ const Carousel : React.FC = () => {
 
             {/* Dots Navigation */}
             <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
-                {slides.map((_, index) => (
+                {data.map((_, index) => (
                     <button
                         key={index}
                         onClick={() => setCurrentIndex(index)}
@@ -74,4 +69,4 @@ const Carousel : React.FC = () => {
     );
 };
 
-export default Carousel;
+export default ChartCarousel;

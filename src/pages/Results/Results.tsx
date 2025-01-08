@@ -1,16 +1,18 @@
 import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "react-feather";
-import BarChart from "../../components/BarChart/BarChart.tsx";
+import {ArrowLeft} from "react-feather";
 import {fetchResults, resetResultsData} from "../../store/slices/SurveySlice.ts";
 import {AppDispatch, RootState} from "../../store";
 import {useDispatch, useSelector} from "react-redux";
+import ChartCarousel from "./ChartCarousel.tsx";
 
 const unit = "Votes"
+
 const ResultsPage: React.FC = () => {
+
     const dispatch: AppDispatch = useDispatch()
         , results = useSelector((state: RootState) => state.survey.resultsData)
-console.log(results);
+
     useEffect(() => {
         dispatch(fetchResults())
 
@@ -20,7 +22,7 @@ console.log(results);
     }, []);
 
     return (
-        <div className="min-h-screen bg-gray-100 text-gray-800 flex flex-col">
+        <div className="min-h-screen text-gray-800 flex flex-col">
             {/* Header */}
             <header className="p-4 flex items-center bg-white shadow relative">
                 {/* Back to Home Link */}
@@ -33,39 +35,15 @@ console.log(results);
                 </h1>
             </header>
 
-            {results &&
-              <main className="flex-grow container mx-auto px-3 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Box 1 */}
-                    <div className="bg-white shadow-md rounded-md p-4 flex items-center justify-center">
-                        <BarChart
-                            title={"Most popular frontend js frameworks"}
-                            labels={results.frontendFramework.values}
-                            unit={unit}
-                            dataset={results.frontendFramework.counts}
-                        />
-                    </div>
-
-                    {/* Box 2 */}
-                    <div className="bg-white shadow-md rounded-md p-4 flex items-center justify-center">
-                        <BarChart
-                            title={"Most popular css frameworks"}
-                            labels={results.cssFramework.values}
-                            unit={unit}
-                            dataset={results.cssFramework.counts}
-                        />
-                    </div>
-
-                    {/* Box 3 */}
-                    <div className="bg-white shadow-md rounded-md p-4 flex items-center justify-center">
-                        <BarChart
-                            title={"Most popular state managers"}
-                            labels={results.stateManager.values}
-                            unit={unit}
-                            dataset={results.stateManager.counts}
-                        />
-                    </div>
-                </main>
-            }
+            <main>
+                {results && <ChartCarousel
+                  data={[
+                      {title:"Most popular frontend js frameworks", labels: results.frontendFramework.values, dataset: results.frontendFramework.counts, unit, key:1},
+                      {title:"Most popular css frameworks", labels: results.cssFramework.values, dataset: results.cssFramework.counts, unit, key:2},
+                      {title:"Most popular state manager", labels: results.stateManager.values, dataset: results.stateManager.counts, unit, key:3},
+                  ]}
+                />}
+            </main>
         </div>
     );
 };
