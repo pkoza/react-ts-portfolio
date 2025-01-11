@@ -34,10 +34,10 @@ const Home: React.FC = () => {
                 <h3 className="text-3xl font-bold mb-8">About Me</h3>
                 <p className="text-lg max-w-2xl mx-auto mb-12">Currently used technologies:</p>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <Card title={"React"} description={"Building robust front-end interfaces."} />
-                    <Card title={"Redux"} description={"Managing centralized state for complex applications."} />
-                    <Card title={"Node.js"} description={"Seamless backend integrations."} />
-                    <Card title={"Tailwind CSS"} description={"Responsive and modern designs."} />
+                    <Card title={"React"} icon="/src/assets/react.svg" description={"Building robust front-end interfaces."} />
+                    <Card title={"Redux"} icon="/src/assets/redux.svg" description={"Managing centralized state for complex applications."} />
+                    <Card title={"Node.js"} icon="/src/assets/nodejs.svg" description={"Seamless backend integrations."} />
+                    <Card title={"Tailwind CSS"} icon="/src/assets/tailwind.svg" description={"Responsive and modern designs."} />
                 </div>
             </div>
         </section>
