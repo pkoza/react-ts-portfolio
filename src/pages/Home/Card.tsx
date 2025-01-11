@@ -7,11 +7,12 @@ export interface CardProps {
     link?: {
         target: string,
         label: string
-    }
+    },
+    customClass?: string
 }
 
-const Card: React.FC<CardProps> = ({title, description, icon, link} : CardProps) =>
-    <div className="grid place-items-center bg-white shadow-md rounded-lg p-8">
+const Card: React.FC<CardProps> = ({title, description, icon, link, customClass} : CardProps) =>
+    <div className={`grid place-items-center bg-white shadow-md rounded-lg p-8${customClass ? ' ' + customClass : ''}`}>
         {icon && <img className="w-8 h-8 mb-4" src={icon}/>}
         <h4 className="font-semibold mb-4">{title}</h4>
         <p>{description}</p>

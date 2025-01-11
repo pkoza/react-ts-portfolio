@@ -10,8 +10,10 @@ export default {
         customBorderColor: 'var(--custom-border-color, #D1D5DB)',
         customBorderFocusColor: 'var(--custom-border-focus-color, #3B82F6)',
         customTagColor: 'var(--custom-tag-color, #DBEAFE)',
-        primary: '#1D4ED8',
-        secondary: '#F97316'
+        // primary: '#1D4ED8',
+        // secondary: '#F97316'
+        primary: "#619ddc",
+        secondary: '#dc9f61'
       },
     },
   },

@@ -28,12 +28,12 @@ const Survey: React.FC = () => {
         , [errors, setErrors] = useState([] as Array<SurveyFormError>)
 
     //Works for both add and delete since we use toggle function
-    const handleSelectMultiOption = useCallback((field: "frontendFramework" | "cssFramework") => (o: Option) => dispatch(toggleSurveyFormArrayItem({field, value: o})), [dispatch])
-    const handleSelectStateManager = useCallback((o: Option) => dispatch(updateSurveyFormData({field: "stateManager", value: o.text})), [dispatch])
-    const fieldErrors = useCallback((name: string) => {
+    const handleSelectMultiOption = (field: "frontendFramework" | "cssFramework") => (o: Option) => dispatch(toggleSurveyFormArrayItem({field, value: o}))
+    const handleSelectStateManager = (o: Option) => dispatch(updateSurveyFormData({field: "stateManager", value: o.text}))
+    const fieldErrors = (name: string) => {
         const fieldErrors = errors.filter(err => err.field === name);
         return fieldErrors.length ? fieldErrors.map(err => err.error).join(', ') : undefined
-    }, [errors])
+    }
 
     useEffect(() => {
         return () => {
