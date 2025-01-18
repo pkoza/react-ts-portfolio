@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({title, backButton, navigation}) => {
                     <button className="block lg:hidden text-primary justify-self-end" onClick={toggleMobileNavOpen}>
                         {isMobileNavOpen ? <X/> : <Menu/>}
                     </button>
-                    <nav className={`${isMobileNavOpen ? 'translate-y-0 opacity-100' : '-translate-y-16 opacity-0 pointer-events-none'} md:hidden absolute top-full right-0 bg-white w-auto pl-4 pr-8 rounded-b-md transition-all duration-300 ease-in-out`}>
+                    <nav className={`${isMobileNavOpen ? 'translate-y-0 opacity-100' : '-translate-y-16 opacity-0 pointer-events-none'} lg:hidden absolute top-full right-0 bg-white w-auto pl-4 pr-8 rounded-b-md transition-all duration-300 ease-in-out`}>
                         {navigation && navigation.map(item => <a href={item.link} key={item.key} className="block p-4 hover:text-secondary">{item.text}</a>)}
                     </nav>
                 </>}
