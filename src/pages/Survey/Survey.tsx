@@ -14,12 +14,13 @@ import consts from "../../helpers/consts.ts";
 import {SurveyFormError} from "../../types/types.ts";
 import validator from "../../helpers/validator.ts";
 import Header from "../../components/Header/Header.tsx";
+import Spinner from "../../components/Spinner/Spinner.tsx";
 
 const filterOptions = (options: Array<Option>, value: string) => value ? options.filter((o) => o.text.toLowerCase().includes(value.toLowerCase())) : options;
 
 const Survey: React.FC = () => {
     const dispatch: AppDispatch = useDispatch()
-        , {formData, sent} = useSelector((state: RootState) => state.survey)
+        , {formData, sent, surveyLoading: loading} = useSelector((state: RootState) => state.survey)
         , [frameworkValue, setFrameworkValue] = useState("")
         , [cssValue, setCssValue] = useState("")
         , frameworkOptionsFiltered = useMemo(() => filterOptions(consts.frameworkDefaultOptions, frameworkValue), [frameworkValue])
@@ -30,6 +31,12 @@ const Survey: React.FC = () => {
     //Works for both add and delete since we use toggle function
     const handleSelectMultiOption = (field: "frontendFramework" | "cssFramework") => (o: Option) => dispatch(toggleSurveyFormArrayItem({field, value: o}))
     const handleSelectStateManager = (o: Option) => dispatch(updateSurveyFormData({field: "stateManager", value: o.text}))
+
+    const handleSubmit = () => {
+        const validation = validator.validateSurveyForm(formData);
+        setErrors(validation);
+        !validation.length && dispatch(postSurvey())
+    }
     const fieldErrors = (name: string) => {
         const fieldErrors = errors.filter(err => err.field === name);
         return fieldErrors.length ? fieldErrors.map(err => err.error).join(', ') : undefined
@@ -41,7 +48,7 @@ const Survey: React.FC = () => {
         };
     }, []);
 
-    return <div className="min-h-screen text-gray-800 dark:text-gray-200 flex flex-col">
+    return <div className="min-h-screen text-gray-800 flex flex-col">
         {/* Header */}
         <Header title={{text: "Survey"}} backButton={{text: "Home", link: "/"}} />
 
@@ -107,14 +114,11 @@ const Survey: React.FC = () => {
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    className="w-full bg-primary text-white py-3 rounded-md shadow-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
-                    onClick={() => {
-                        const validation = validator.validateSurveyForm(formData);
-                        setErrors(validation);
-                        !validation.length && dispatch(postSurvey())
-                    }}
+                    className="w-full min-h-12 bg-primary text-white py-3 rounded-md shadow-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+                    onClick={handleSubmit}
+                    disabled={loading}
                 >
-                    Send Form
+                    {loading ? <Spinner inButton /> : "Send Form"}
                 </button>
             </div>
                 :

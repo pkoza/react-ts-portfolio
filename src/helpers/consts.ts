@@ -1,7 +1,7 @@
 import {SurveyFormData} from "../types/types.ts";
 
 const consts = {
-    getEmptySurveyFormData: () : SurveyFormData => ({
+    emptySurveyFormData: () : SurveyFormData => ({
         frontendFramework: [],
         cssFramework: [],
         name: "",
@@ -11,7 +11,8 @@ const consts = {
         {id:1, text:'React'},
         {id:2, text:'Vue'},
         {id:3, text:'Svelte'},
-        {id:4, text:'Angular'}
+        {id:4, text:'Angular'},
+        {id:5, text:'Ember'}
     ],
     managerDefaultOptions: [
         {id:1, text:'Redux'},
@@ -27,7 +28,8 @@ const consts = {
         {id:4, text:'Foundation'},
         {id:5, text:'Bulma'},
         {id:6, text:'Skeleton'}
-    ]
+    ],
+    chartUnit: "Votes"
 }
 
 Object.freeze(consts)

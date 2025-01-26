@@ -7,8 +7,10 @@ import {AxiosError} from "axios";
 import messages from "../../helpers/messages.tsx";
 
 const initialState : SurveyState = {
-    formData: consts.getEmptySurveyFormData(),
-    sent: false
+    formData: consts.emptySurveyFormData(),
+    sent: false,
+    surveyLoading: false,
+    resultsLoading: false
 }
 
 export const postSurvey = createAsyncThunk(
@@ -56,7 +58,7 @@ const surveySlice = createSlice({
             }
         },
         resetSurveyFormData: (state) => {
-            state.formData = consts.getEmptySurveyFormData()
+            state.formData = consts.emptySurveyFormData()
         },
         resetResultsData: (state) => {
             state.resultsData = undefined
@@ -69,8 +71,19 @@ const surveySlice = createSlice({
         builder
             .addCase(postSurvey.fulfilled, (state) => {
                 state.sent = true;
+                state.formData = consts.emptySurveyFormData();
+                state.surveyLoading = false
             }).addCase(fetchResults.fulfilled, (state, action) => {
                 state.resultsData = action.payload;
+                state.resultsLoading = false;
+            }).addCase(postSurvey.pending, (state, _) => {
+                state.surveyLoading = true;
+            }).addCase(fetchResults.pending, (state, _) => {
+                state.resultsLoading = true;
+            }).addCase(postSurvey.rejected, (state, _) => {
+                state.surveyLoading = false;
+            }).addCase(fetchResults.rejected, (state, _) => {
+                state.resultsLoading = false;
             }).addMatcher(isRejected, (_, action) => {
                 messages.error(action.payload as string)
             })

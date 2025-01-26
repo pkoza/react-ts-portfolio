@@ -3,7 +3,9 @@ import {Option} from "../components/SelectInput/SelectInput.tsx";
 export interface SurveyState {
     sent: boolean,
     formData: SurveyFormData,
-    resultsData?: Record<keyof SurveyFormData, AggregatedAnswers>
+    resultsData?: Record<keyof SurveyFormData, AggregatedAnswers>,
+    surveyLoading: boolean,
+    resultsLoading: boolean
 }
 
 export interface SurveyFormData {
