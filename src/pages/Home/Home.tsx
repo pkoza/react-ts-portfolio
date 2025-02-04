@@ -4,7 +4,12 @@ import {Link} from "react-router-dom";
 import Card from "./Card.tsx";
 import Header from "../../components/Header/Header.tsx";
 import Footer from "./Footer.tsx";
-
+import iconReact from "../../assets/react.svg";
+import iconNodejs from "../../assets/nodejs.svg";
+import iconPostgresql from "../../assets/postgresql.svg";
+import iconRedux from "../../assets/redux.svg";
+import iconTailwind from "../../assets/tailwind.svg";
+import iconTypescript from "../../assets/typescript.svg";
 
 
 const Home: React.FC = () => {
@@ -34,12 +39,12 @@ const Home: React.FC = () => {
                 <h3 className="text-3xl font-bold mb-8">About Me</h3>
                 <p className="text-lg max-w-2xl mx-auto mb-12">Currently used technologies:</p>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                    <Card title="React" icon="/src/assets/react.svg" description="Building robust front-end interfaces." />
-                    <Card title="Redux" icon="/src/assets/redux.svg" description="Managing centralized state for complex applications." />
-                    <Card title="Typescript" icon="/src/assets/typescript.svg" description="Type safety" />
-                    <Card title="Tailwind CSS" icon="/src/assets/tailwind.svg" description="Responsive and modern designs." />
-                    <Card title="Node.js" icon="/src/assets/nodejs.svg" description="Core of backend integrations." customClass="md:col-start-2" />
-                    <Card title="PostgreSQL; PL/pgSQL" icon="/src/assets/postgresql.svg" description="Data persistence. Efficient stored procedures." />
+                    <Card title="React" icon={iconReact} description="Building robust front-end interfaces." />
+                    <Card title="Redux" icon={iconRedux} description="Managing centralized state for complex applications." />
+                    <Card title="Typescript" icon={iconTypescript} description="Type safety" />
+                    <Card title="Tailwind CSS" icon={iconTailwind} description="Responsive and modern designs." />
+                    <Card title="Node.js" icon={iconNodejs} description="Core of backend integrations." customClass="md:col-start-2" />
+                    <Card title="PostgreSQL; PL/pgSQL" icon={iconPostgresql} description="Data persistence. Efficient stored procedures." />
                 </div>
             </div>
         </section>
@@ -51,7 +56,7 @@ const Home: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <Card title="SÚKL" description="Executed multiple migrations to React/Redux. Delivered fullstack development solutions."/>
                     <Card title="Barum Continental" description="Developed an internal PWA tailored to the customer’s continually evolving ideas and requirements."/>
-                    <Card title="O2.sk" description="UI Enhancements, Tech stack migration, Styling"/>
+                    <Card title="O2.sk" description="UI Enhancements, Tech stack migration"/>
                 </div>
             </div>
         </section>
