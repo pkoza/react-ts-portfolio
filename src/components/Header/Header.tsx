@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
-import {AlignJustify, ArrowLeft, Menu, X} from "react-feather";
+import {Link} from "react-router-dom";
+import {ArrowLeft, Menu, X} from "react-feather";
 
 export interface HeaderProps {
     title: {

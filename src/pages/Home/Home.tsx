@@ -23,8 +23,8 @@ const Home: React.FC = () => {
         {/* Intro/Home Section */}
         <section id="home" className="bg-primary text-white h-screen flex items-center justify-center py-6">
             <div className="text-center">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6">Hi, I'm Peter Koza</h2>
-                <p className="text-xl md:text-2xl mb-8">Frontend(React)/Fullstack Developer with a Passion for Crafting User Experiences</p>
+                <h2 className="text-4xl md:text-5xl font-bold mb-6">Welcome to my Personal Portfolio</h2>
+                <p className="text-xl md:text-2xl mb-8">My name is Peter Koza and I'm a Fullstack Developer based in Brno, CZ</p>
             </div>
         </section>
 
@@ -38,8 +38,8 @@ const Home: React.FC = () => {
                     <Card title="Redux" icon="/src/assets/redux.svg" description="Managing centralized state for complex applications." />
                     <Card title="Typescript" icon="/src/assets/typescript.svg" description="Type safety" />
                     <Card title="Tailwind CSS" icon="/src/assets/tailwind.svg" description="Responsive and modern designs." />
-                    <Card title="Node.js" icon="/src/assets/nodejs.svg" description="Seamless backend integrations." customClass="md:col-start-2" />
-                    <Card title="PostgreSQL; PL/pgSQL" icon="/src/assets/redux.svg" description="Data persistence. Efficient stored procedures." />
+                    <Card title="Node.js" icon="/src/assets/nodejs.svg" description="Core of backend integrations." customClass="md:col-start-2" />
+                    <Card title="PostgreSQL; PL/pgSQL" icon="/src/assets/postgresql.svg" description="Data persistence. Efficient stored procedures." />
                 </div>
             </div>
         </section>
@@ -47,11 +47,11 @@ const Home: React.FC = () => {
         {/* Projects Section */}
         <section id="projects" className="h-screen py-24 flex items-center">
             <div className="container mx-auto text-center">
-                <h3 className="text-3xl font-bold mb-8">Projects I worked on</h3>
+                <h3 className="text-3xl font-bold mb-8">Some of the projects I worked on</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <Card title="Project 1" description="A brief description of the project."/>
-                    <Card title="Project 2" description="A brief description of the project."/>
-                    <Card title="Project 3" description="A brief description of the project."/>
+                    <Card title="SÚKL" description="Executed multiple migrations to React/Redux. Delivered fullstack development solutions."/>
+                    <Card title="Barum Continental" description="Developed an internal PWA tailored to the customer’s continually evolving ideas and requirements."/>
+                    <Card title="O2.sk" description="UI Enhancements, Tech stack migration, Styling"/>
                 </div>
             </div>
         </section>
@@ -59,7 +59,7 @@ const Home: React.FC = () => {
         {/* Survey Section */}
         <section id="survey" className="h-screen bg-gray-200 flex items-center justify-center">
             <div className="text-center">
-                <h3 className="text-3xl font-bold mb-8">That's some info about me. Can I also ask you a question?</h3>
+                <h3 className="text-3xl font-bold mb-8">That's something about me. I also have a question for you.</h3>
                 <p className="text-lg mb-8">What are your favorite frontend technologies?</p>
                 <div className="flex justify-center space-x-6">
                     <Link to="/survey" className="bg-primary text-white py-4 px-8 rounded-lg shadow-lg hover:bg-opacity-90">Take a Survey</Link>
@@ -75,7 +75,7 @@ const Home: React.FC = () => {
                 <p className="text-lg mb-8">Feel free to reach out to me for collaborations, questions, or just to say hi!</p>
                 <div className="flex justify-center space-x-6">
                     <a href="mailto:p.koza@hotmail.sk" className="bg-primary text-white py-4 px-8 rounded-lg shadow-lg hover:bg-opacity-90">Email Me</a>
-                    <a href="#" className="bg-secondary text-white py-4 px-8 rounded-lg shadow-lg hover:bg-opacity-90">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/peter-koza-aa6b7296/" className="bg-secondary text-white py-4 px-8 rounded-lg shadow-lg hover:bg-opacity-90">LinkedIn</a>
                 </div>
             </div>
         </section>

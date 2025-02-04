@@ -1,11 +1,12 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {Link} from "react-router-dom";
-import {ArrowLeft, ArrowRight} from "react-feather";
+import {ArrowRight} from "react-feather";
 import TextInput from "../../components/TextInput/TextInput.tsx";
 import {AppDispatch, RootState} from "../../store";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    postSurvey, resetSurveyFormData,
+    postSurvey,
+    resetSurveyFormData,
     toggleSurveyFormArrayItem,
     updateSurveyFormData
 } from "../../store/slices/SurveySlice.ts";
@@ -20,7 +21,9 @@ const filterOptions = (options: Array<Option>, value: string) => value ? options
 
 const Survey: React.FC = () => {
     const dispatch: AppDispatch = useDispatch()
+        //selected values stored in central state
         , {formData, sent, surveyLoading: loading} = useSelector((state: RootState) => state.survey)
+        //controlled input values for search, not needed in central state
         , [frameworkValue, setFrameworkValue] = useState("")
         , [cssValue, setCssValue] = useState("")
         , frameworkOptionsFiltered = useMemo(() => filterOptions(consts.frameworkDefaultOptions, frameworkValue), [frameworkValue])
@@ -56,7 +59,7 @@ const Survey: React.FC = () => {
         <main className="flex-grow container mx-auto p-6 pt-12 flex flex-col items-center">
             {!sent ?
             <div className="w-full max-w-lg space-y-6">
-                {/* Username Field */}
+                {/* Input Fields */}
                 <div>
                     <TextInput
                         value={formData.name}
@@ -67,7 +70,6 @@ const Survey: React.FC = () => {
                     />
                 </div>
 
-                {/* Preferred Framework Field */}
                 <div>
                     <SelectInput
                         multiple={true}
@@ -83,7 +85,6 @@ const Survey: React.FC = () => {
                     />
                 </div>
 
-                {/* Preferred State Manager Field */}
                 <div>
                     <SelectInput
                         value={formData.stateManager}
